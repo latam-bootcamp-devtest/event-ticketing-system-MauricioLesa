@@ -16,7 +16,9 @@ public class UserService {
 
     public Page<TicketHistory>  findHistory(HistoryRequest request, int userId){
 
-        return repository.findHistory(
+        return repository.findTicketHistory(
+                request.getStartDate(),
+                request.getEndDate(),
                 request.getSearch(),
                 userId,
                 Pageable.ofSize(request.getPageSize()).withPage(request.getPage()));

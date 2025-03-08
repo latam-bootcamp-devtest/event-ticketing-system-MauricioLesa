@@ -11,9 +11,9 @@ import java.util.Date;
 public interface TicketRepository extends JpaRepository<Ticket, Integer> {
 
     @Query(
-            value = "select t.ticket_id, t.event_id, t.user_id, e.name, e.date\n" +
-                    "from ticket t, event e \n" +
-                    "t.event_id = e.event_id and e.name like ?1 and t.user_id = ?2",
-            nativeQuery = true)
-    Page<TicketHistory> findHistory(String name,int userId, Pageable pageable);
+            value = "select new TicketHistory( t.ticketId, t.eventId, t.userId, e.name, e.date) \n" +
+                    "from Ticket t, Event e \n" +
+                    "where e.date > ?1 and e.date < ?2 and t.eventId = e.eventId and  e.name like %?3% and t.userId = ?4"
+    )
+    Page<TicketHistory> findTicketHistory(Date before,Date after,String name, int userId, Pageable pageable);
 }

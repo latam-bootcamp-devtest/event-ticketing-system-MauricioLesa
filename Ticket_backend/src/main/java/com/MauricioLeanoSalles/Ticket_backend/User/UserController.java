@@ -14,8 +14,17 @@ public class UserController {
     private final UserService service;
 
     @GetMapping("/{userId}/tickets")
-    public ResponseEntity<Page<TicketHistory>> bookingHistory(@RequestBody HistoryRequest request, @PathVariable int userId){
+    public ResponseEntity<HistoryResponse> bookingHistory(@RequestBody HistoryRequest request, @PathVariable int userId){
+
         Page<TicketHistory> page = service.findHistory(request, userId);
-        return ResponseEntity.ok(page);
+
+        HistoryResponse response = HistoryResponse.builder()
+                .currentPage(page.getNumber())
+                .totalPages(page.getTotalPages())
+                .pageSize(page.getSize())
+                .events(page.getContent())
+                .build();
+
+        return ResponseEntity.ok(response);
     }
 }
