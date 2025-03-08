@@ -24,7 +24,7 @@ public class EventController {
         if(request.getAvailableSeats() < 1 || !current.before(request.getDate())){
             return ResponseEntity.status(409).build();
         }
-        
+
         Event event = eventService.createEvent(request);
 
         return ResponseEntity.status(201).body(event);

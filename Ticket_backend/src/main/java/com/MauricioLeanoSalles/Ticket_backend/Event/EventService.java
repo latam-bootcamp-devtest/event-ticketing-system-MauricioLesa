@@ -5,6 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 @AllArgsConstructor
 public class EventService {
@@ -25,6 +27,7 @@ public class EventService {
     }
 
     public Page<Event> getEvents(int page, int pagesize) {
-        return repository.findAll(Pageable.ofSize(pagesize).withPage(page) );
+        Date date = new Date();
+        return repository.findByDateAfterOrderByDate(date, Pageable.ofSize(pagesize).withPage(page));
     }
 }
