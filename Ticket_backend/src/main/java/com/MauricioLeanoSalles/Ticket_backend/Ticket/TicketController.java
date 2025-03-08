@@ -4,10 +4,7 @@ package com.MauricioLeanoSalles.Ticket_backend.Ticket;
 import com.MauricioLeanoSalles.Ticket_backend.Event.EventService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/tickets")
@@ -26,7 +23,20 @@ public class TicketController {
 
         return ResponseEntity.status(201).body(service.createTicket(request));
 
+    }
+
+    @DeleteMapping("/{ticketId}")
+    public ResponseEntity<Ticket> deleteTicket(@PathVariable int ticketId){
+
+        if(!service.ticketExist(ticketId)) return ResponseEntity.status(404).build();
+
+        if(service.pastEvent(ticketId)) return ResponseEntity.status(400).build();
+
+        service.deleteTicket(ticketId);
+        return ResponseEntity.status(204).build();
+
 
     }
+
 
 }
