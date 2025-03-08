@@ -7,6 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
+
 @RestController
 @RequestMapping("/events")
 @AllArgsConstructor
@@ -17,9 +19,15 @@ public class EventController {
     @PostMapping
     public ResponseEntity<Event> saveEvent(@RequestBody EventRequest request){
 
+        Date current = new Date();
+
+        if(request.getAvailableSeats() < 1 || !current.before(request.getDate())){
+            return ResponseEntity.status(409).build();
+        }
+        
         Event event = eventService.createEvent(request);
 
-        return ResponseEntity.ok(event);
+        return ResponseEntity.status(201).body(event);
     }
 
     @GetMapping

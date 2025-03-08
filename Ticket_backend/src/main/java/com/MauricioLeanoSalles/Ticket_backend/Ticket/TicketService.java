@@ -13,15 +13,7 @@ public class TicketService {
     private final TicketRepository repository;
     private final EventRepository eventRepository;
 
-    public boolean eventExist(int eventId){
 
-        return eventRepository.findById(eventId).isPresent();
-
-    }
-
-    public boolean seatsAvailable(int eventId){
-        return eventRepository.findById(eventId).get().getAvailableSeats() > 0;
-    }
 
     public Ticket createTicket(TicketRequest request){
 

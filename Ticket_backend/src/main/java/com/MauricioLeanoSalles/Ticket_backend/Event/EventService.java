@@ -12,11 +12,16 @@ public class EventService {
     final private EventRepository repository;
 
     public Event createEvent(EventRequest request){
-
         Event eventRequest = new Event(request);
-
         return repository.save(eventRequest);
+    }
 
+    public boolean eventExist(int eventId){
+        return repository.findById(eventId).isPresent();
+    }
+
+    public boolean seatsAvailable(int eventId){
+        return repository.findById(eventId).get().getAvailableSeats() > 0;
     }
 
     public Page<Event> getEvents(int page, int pagesize) {

@@ -1,6 +1,7 @@
 package com.MauricioLeanoSalles.Ticket_backend.Event;
 
 
+import jakarta.annotation.Nonnull;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
