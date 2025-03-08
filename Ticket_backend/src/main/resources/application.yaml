@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: Ticket_backend
+  datasource:
+    username: ticket
+    password: ticket
+    url: jdbc:postgresql://localhost:5432/ticket
+    driver-class-name: org.postgresql.Driver
+  hibernate:
+    dll-auto: update
+  jpa:
+    database-platform=org: hibernate.dialect.PostgreSQLDialect
