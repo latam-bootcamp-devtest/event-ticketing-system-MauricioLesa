@@ -2,6 +2,9 @@ import React from 'react'
 import EventCard from './EventCard'
 import { useGetEvent } from './useGetEvent'
 
+import React from 'react'
+
+
 function EventPage() {
 
     const data = useGetEvent();
